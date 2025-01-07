@@ -13,7 +13,7 @@ function App() {
     <div className='p-4 flex flex-col min-h-screen'>
       <Header />
       <Outlet />
-      <ToastContainer position="bottom-right" autoClose={2000} newestOnTop closeButton pauseOnHover={false}/>
+      <ToastContainer position="bottom-right" autoClose={2000} newestOnTop closeButton pauseOnHover={false} />
     </div>
   )
 }

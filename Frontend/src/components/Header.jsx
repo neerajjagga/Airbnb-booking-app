@@ -25,7 +25,7 @@ const Header = () => {
                         </svg>
                     </button>
                 </div>
-                <Link to="/login" className='flex gap-3 items-center border border-gray-300 rounded-full py-2 px-3'>
+                <Link to={user ? "/account" : "/login"} className='flex gap-3 items-center border border-gray-300 rounded-full py-2 px-3'>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                     </svg>
