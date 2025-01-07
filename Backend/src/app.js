@@ -2,6 +2,7 @@ const express = require('express');
 const { connectDB } = require('./db/db');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
@@ -13,10 +14,13 @@ app.use(cors({
     credentials : true,
 }));
 app.use(cookieParser());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const { userRouter } = require('./routes/user.routes');
+const { placeRouter } = require('./routes/place.route');
 
 app.use('/api/user', userRouter);
+app.use('/api/places', placeRouter);
 
 connectDB()
     .then(() => {

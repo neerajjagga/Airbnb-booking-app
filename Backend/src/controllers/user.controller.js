@@ -36,7 +36,7 @@ const registerUser = async (req, res) => {
         res.status(200).json({
             success: true,
             message: "Account created successfully",
-            user : user,
+            user: user,
         })
 
     } catch (error) {
@@ -86,7 +86,7 @@ const loginUser = async (req, res) => {
         res.status(200).json({
             success: true,
             message: "Login successfully",
-            user : user
+            user: user
         })
 
     } catch (error) {
@@ -129,9 +129,21 @@ const logoutUser = async (req, res) => {
     }
 }
 
+const checkAuth = async (req, res) => {
+    try {
+        const loggedInUser = req.user;
+        return res.status(200).json({
+            success: true,
+            user: loggedInUser,
+        })
+    } catch (error) {
+        console.log("Error coming while checkAuth" + error);
+    }
+}
 
 module.exports = {
     registerUser,
     loginUser,
-    logoutUser
+    logoutUser,
+    checkAuth,
 }
