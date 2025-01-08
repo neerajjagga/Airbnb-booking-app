@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const placeSchema = mongoose.model({
+const placeSchema = new mongoose.Schema({
     owner : {
         type : mongoose.Schema.Types.ObjectId,
         ref : 'User',
@@ -15,19 +15,28 @@ const placeSchema = mongoose.model({
     },
     description : {
         type : String,
-        maxLength : 200,      
+        maxLength : 1000,      
+    },
+    address : {
+        type : String,
+    },
+    price : {
+        type : Number,
     },
     perks : {
         type : [String]
+    },
+    photos : {
+        type : [String],
     },
     extraInfo : {
         type : String,
     },
     checkIn : {
-        type : Number
+        type : String,
     },
     checkOut : {
-        Number,
+        type : String,
     },
     maxGuests : {
         type : Number,
@@ -37,6 +46,14 @@ const placeSchema = mongoose.model({
 })
 
 const Place = mongoose.model('Place', placeSchema);
+
+placeSchema.set('toJSON', {
+    transform : function(doc, ret) {
+        delete ret.updatedAt
+        delete ret.owner
+        delete ret.__v
+    } 
+})
 
 module.exports = {
     Place,
