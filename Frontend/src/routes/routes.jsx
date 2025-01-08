@@ -5,47 +5,53 @@ import RegisterPage from "../pages/RegisterPage";
 import AccountPage from "../pages/AccountPage";
 import Bookings from "../components/Bookings";
 import Places from "../components/Places";
+import PlacePage from "../pages/PlacePage";
 import App from "../App";
 
 
 const appRouter = createBrowserRouter([
     {
-        path : "/",
-        element : <App />,
-        children : [
+        path: "/",
+        element: <App />,
+        children: [
             {
-                path : "/",
-                element : <IndexPage />
+                index: true,
+                element: <IndexPage />
             },
             {
-                path : "/login",
-                element : <LoginPage />
+                path: "/login",
+                element: <LoginPage />
             },
             {
-                path : "/register",
-                element : <RegisterPage />
+                path: "/register",
+                element: <RegisterPage />
             },
             {
-                path : '/account',
-                element : <AccountPage />,
-                children : [
+                path: '/account',
+                element: <AccountPage />,
+                children: [
                     {
-                        path : 'bookings',
-                        element : <Bookings />
+                        path: 'bookings',
+                        element: <Bookings />
                     },
                     {
-                        path : 'places',
-                        element : <Places />,
-                        children : [
+                        path: 'places',
+                        element: <Places />,
+                        children: [
                             {
-                                path : 'new',
-                                element : <Places />
-                            }                            
+                                path: 'new',
+                                element: <Places />
+                            }
                         ]
                     }
+
                 ]
+            },
+            {
+                path: 'places/:placeId',
+                element: <PlacePage />,
             }
-        ] 
+        ]
     },
 ])
 

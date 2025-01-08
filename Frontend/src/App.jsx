@@ -10,7 +10,7 @@ axios.defaults.withCredentials = true;
 function App() {
 
   return (
-    <div className='p-4 flex flex-col min-h-screen'>
+    <div className='py-4 px-8 flex flex-col min-h-screen'>
       <Header />
       <Outlet />
       <ToastContainer position="bottom-right" autoClose={2000} newestOnTop closeButton pauseOnHover={false} />
