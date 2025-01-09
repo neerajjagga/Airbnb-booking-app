@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { toast } from 'react-toastify';
+import BookingWidget from '../components/BookingWidget';
 
 const PlacePage = () => {
   const { placeId } = useParams();
@@ -25,9 +26,9 @@ const PlacePage = () => {
   if (!place) {
     return (
       <>
-        <div class="space-y-4 mt-4">
-          <div class="w-full h-16 bg-gray-300 rounded-lg animate-pulse"></div>
-          <div class="w-full h-16 bg-gray-300 rounded-lg animate-pulse"></div>
+        <div className="space-y-4 mt-4">
+          <div className="w-full h-16 bg-gray-300 rounded-lg animate-pulse"></div>
+          <div className="w-full h-16 bg-gray-300 rounded-lg animate-pulse"></div>
         </div>
       </>
     )
@@ -37,12 +38,13 @@ const PlacePage = () => {
     return (
       <div className='absolute inset-0 bg-white min-h-screen'>
         <div className='p-8 grid gap-4'>
-          <div className='fixed top-0 py-3 bg-white w-full'>
+          <div className='flex gap-8 items-center pr-16 fixed top-0 py-3 bg-white w-full'>
             <button onClick={() => setShowAllPhotos(false)} className='bg-transparent transition rounded-full p-1 hover:bg-gray-200'>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-7">
                 <path fillRule="evenodd" d="M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z" clipRule="evenodd" />
               </svg>
             </button>
+            <h2 className='text-2xl font-semibold truncate'>Photos of {place.title}</h2>
           </div>
           {place?.photos?.length > 0 && place.photos.map(photo => (
             <div>
@@ -55,7 +57,7 @@ const PlacePage = () => {
   }
 
   return (
-    <div className='mt-4 bg-gray-100 -mx-8 px-8 py-6'>
+    <div className='mt-4 bg-gray-100 -mx-8 px-8 pt-6'>
       <h1 className='text-2xl'>{place.title}</h1>
       <div className='flex items-center gap-1'>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -68,18 +70,18 @@ const PlacePage = () => {
         <div className='grid gap-2 grid-cols-[2fr_1fr] mt-5'>
           <div>
             {place.photos?.[0] && (
-              <div className='aspect-square object-cover'>
-                <img className='rounded-tl-2xl rounded-bl-2xl' src={'http://localhost:3000/uploads/' + place.photos?.[0]} alt="" />
+              <div className='aspect-square object-cover rounded-2xl overflow-hidden'>
+                <img onClick={() => setShowAllPhotos(true)} className='cursor-pointer' src={'http://localhost:3000/uploads/' + place.photos?.[0]} alt="" />
               </div>
             )}
           </div>
           <div className='flex flex-col'>
             {place.photos?.[1] && (
-              <img className='rounded-tr-2xl' src={'http://localhost:3000/uploads/' + place.photos?.[1]} alt="" />
+              <img onClick={() => setShowAllPhotos(true)} className=' cursor-pointer rounded-tr-2xl' src={'http://localhost:3000/uploads/' + place.photos?.[1]} alt="" />
             )}
             <div className='overflow-hidden'>
               {place.photos?.[2] && (
-                <img className='relative top-2 rounded-br-3xl' src={'http://localhost:3000/uploads/' + place.photos?.[2]} alt="" />
+                <img onClick={() => setShowAllPhotos(true)} className= 'cursor-pointer relative top-2' src={'http://localhost:3000/uploads/' + place.photos?.[2]} alt="" />
               )}
             </div>
           </div>
@@ -90,6 +92,26 @@ const PlacePage = () => {
           </svg>
           Show all photos
         </button>
+      </div>
+      <div className='grid mb-8 mt-8 gap-8 grid-cols-1 md:grid-cols-[2fr_1fr]'>
+        <div>
+          <div className='my-4'>
+            <h2 className='font-semibold text-2xl'>Description</h2>
+            {place.description}
+          </div>
+          Check-in : {place.checkIn} <br />
+          check-out : {place.checkOut} <br />
+          Max Number of guests : {place.maxGuests}
+        </div>
+        <div>
+          <BookingWidget place={place}/>
+        </div>
+      </div>
+      <div className="bg-white -mx-8 px-8 py-8 border-t-2">
+        <div>
+          <h2 className='font-semibold text-2xl'>Extra Info</h2>
+        </div>
+        <div className='mb-4 mt-2 text-sm text-gray-700 leading-5'>{place.extraInfo}</div>
       </div>
     </div>
   )

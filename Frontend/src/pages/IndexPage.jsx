@@ -1,16 +1,37 @@
 import { useEffect, useState } from "react"
 import axios from 'axios';
+import {toast} from 'react-toastify';
 import { Link } from "react-router-dom";
 
 export default function IndexPage() {
     const [places, setPlaces] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        setLoading(true);
         axios.get('/places/all')
             .then(({ data }) => {
-                setPlaces([...data.allPlaces, ...data.allPlaces]);
+                setPlaces([...data.allPlaces]);
             })
-    }, [])
+            .catch(({response}) => {
+                toast.error(response.data.message || "Something went wrong, try again later")
+            })
+            .finally(() => {
+                setLoading(false);
+            })
+    }, []);
+
+    if(loading) {
+        return (
+            <div className="mt-8 grid gap-x-6 gap-y-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                <div className="h-96 bg-gray-300 rounded-2xl mb-2"></div>
+                <div className="h-96 bg-gray-300 rounded-2xl mb-2"></div>
+                <div className="h-96 bg-gray-300 rounded-2xl mb-2"></div>
+                <div className="h-96 bg-gray-300 rounded-2xl mb-2"></div>
+                <div className="h-96 bg-gray-300 rounded-2xl mb-2"></div>
+            </div>
+        )
+    }
 
     return (
         <div className="mt-8 grid gap-x-6 gap-y-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
