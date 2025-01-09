@@ -18,9 +18,11 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const { userRouter } = require('./routes/user.routes');
 const { placeRouter } = require('./routes/place.route');
+const { bookingRouter } = require('./routes/booking.route');
 
 app.use('/api/user', userRouter);
 app.use('/api/places', placeRouter);
+app.use('/api/bookings', bookingRouter);
 
 connectDB()
     .then(() => {

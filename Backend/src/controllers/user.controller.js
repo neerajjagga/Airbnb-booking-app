@@ -141,9 +141,48 @@ const checkAuth = async (req, res) => {
     }
 }
 
+
+const updateUser = async(req, res) => {
+    try {
+        const loggedInUser = req.user;
+        const {name:updatedName} = req.body;
+
+        if(!updatedName) {
+            return res.status(400).json({
+                success : false,
+                message : "Name is required"
+            })
+        }
+        if(updatedName.length < 3) {
+            return res.status(400).json({
+                success : false,
+                message : "Name must be greater than 3 characters"
+            })
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(loggedInUser._id, {
+            name : updatedName,
+        }, {new : true})
+
+        res.status(200).json({
+            success : true,
+            message : "Profile updated successfully",
+            user : updatedUser,
+        })
+    } catch (error) {
+        console.log("Error coming while updating profile" + error.message);
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        })
+    }
+}
+
+
 module.exports = {
     registerUser,
     loginUser,
     logoutUser,
     checkAuth,
+    updateUser,
 }
