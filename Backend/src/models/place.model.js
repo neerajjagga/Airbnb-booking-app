@@ -10,9 +10,6 @@ const placeSchema = new mongoose.Schema({
         type : String,
         required : true,
     },
-    subtitle : {
-        type : String,
-    },
     description : {
         type : String,
         maxLength : 1000,      

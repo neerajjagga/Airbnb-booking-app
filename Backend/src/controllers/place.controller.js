@@ -155,6 +155,45 @@ const getAllPlaces = async (req, res) => {
     }
 }
 
+const getFilteredPlaces = async(req, res) => {
+    try {
+        const {location, name} = req.query;
+        
+        const locationRegex = location ? new RegExp(location, "i") : null;
+        const nameRegex = name ? new RegExp(name, "i") : null;
+
+        const query = {
+            $or : []
+        }
+
+        if(locationRegex) query.$or.push({address : locationRegex})
+        if(nameRegex) query.$or.push({title : nameRegex})
+
+        const filteredPlaces = await Place.find(query);
+    
+        if(filteredPlaces.length === 0) {
+            return res.status(200).json({
+                success : false,
+                message : "No places found",
+                places : [],
+            })
+        }
+
+        res.status(200).json({
+            success : true,
+            message : "Places found successfully",
+            places : filteredPlaces,
+        })
+
+    } catch (error) {
+        console.log("Error coming while searching places" + error.message);
+        res.status(500).json({
+            success: false,
+            message: "Something went wrong, try again later",
+        })
+    }
+}
+
 module.exports = {
     uploadImageByLink,
     uploadPhotos,
@@ -162,4 +201,5 @@ module.exports = {
     getMyPlaces,
     getPlace,
     getAllPlaces,
+    getFilteredPlaces
 }

@@ -10,7 +10,7 @@ const userAuth = async (req, res, next) => {
         if (!token) {
             return res.status(401).json({
                 success: false,
-                message: "Authentication required. Please log in."
+                message: "Please log in."
             })
         }
 

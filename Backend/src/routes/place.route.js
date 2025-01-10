@@ -6,6 +6,7 @@ const { uploadImageByLink,
     getMyPlaces, 
     getPlace,
     getAllPlaces,
+    getFilteredPlaces
 } = require('../controllers/place.controller');
 const {validateNewPlaceData} = require('../validators/place.validation');
 const multer = require('multer');
@@ -30,6 +31,7 @@ placeRouter.post('/upload-photos', userAuth, upload.array('photos', 15), uploadP
 placeRouter.post('/new', userAuth, validateNewPlaceData, addNewPlace)
 placeRouter.get('/my-places', userAuth, getMyPlaces);
 placeRouter.get('/all', userAuth, getAllPlaces);
+placeRouter.post('/s', userAuth, getFilteredPlaces);
 placeRouter.get('/:placeId', userAuth, getPlace);
 
 module.exports = {
