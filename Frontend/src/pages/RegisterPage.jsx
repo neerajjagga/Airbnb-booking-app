@@ -26,18 +26,13 @@ const RegisterPage = () => {
                 password,
             })
             .then((res) => {
-                console.log("Response:", res);
                 if (res.data.success) {
                     toast.success(res.data.message);
-                    console.log(res.data.user);
                     setUser(res.data.user);
                     navigate('/');
                 }
             })
             .catch((error) => {
-                console.error("Error occurred:", error);
-                console.log(error.response);
-
                 if (error.response) {
                     toast.error(error.response.data.message);
                 } else {

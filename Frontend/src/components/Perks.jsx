@@ -5,10 +5,8 @@ const Perks = ({ perks, setPerks }) => {
         const { checked, name } = e.target;
         if (checked) {
             setPerks([...perks, name]);
-            console.log(perks);
         } else {
             setPerks([...perks.filter(perk => perk !== name)]);
-            console.log(perks);
         }
     }
 

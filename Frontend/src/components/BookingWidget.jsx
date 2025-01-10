@@ -33,7 +33,6 @@ const BookingWidget = ({ place }) => {
             placeId: place._id
         })
             .then(({ data }) => {
-                console.log(data);
                 toast.success(data.message);
                 setRedirect('/account/bookings')
             })
@@ -94,7 +93,7 @@ const BookingWidget = ({ place }) => {
                             required
                         />
 
-                        <label>phoneNumber  number:<span className=" text-red-400">*</span></label>
+                        <label>Phone Number:<span className=" text-red-400">*</span></label>
                         <input
                             type="tel"
                             value={phoneNumber }

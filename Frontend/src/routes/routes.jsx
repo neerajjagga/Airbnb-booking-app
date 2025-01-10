@@ -6,6 +6,7 @@ import AccountPage from "../pages/AccountPage";
 import Bookings from "../components/Bookings";
 import Places from "../components/Places";
 import PlacePage from "../pages/PlacePage";
+import SearchPage from '../pages/SearchPage';
 import App from "../App";
 
 
@@ -17,6 +18,10 @@ const appRouter = createBrowserRouter([
             {
                 index: true,
                 element: <IndexPage />
+            },
+            {
+                path: '/s',
+                element: <SearchPage />
             },
             {
                 path: "/login",

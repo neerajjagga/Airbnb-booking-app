@@ -14,7 +14,6 @@ const Places = () => {
     setLoading(true)
     async function fetchMyPlaces() {
       const { data } = await axios.get('/places/my-places');
-      console.log(data);
       setMyAccomodations(data.myPlaces);
       setLoading(false)
     }
@@ -40,10 +39,10 @@ const Places = () => {
             {myAccomodations.length > 0 ? (
               myAccomodations.map(acc => {
                 return (
-                  <Link to={'/places/' + acc._id} className='flex bg-gray-100 gap-4 p-4 rounded-2xl cursor-pointer'>
-                    <div className='w-1/5 h-auto bg-gray-300 shrink-0 rounded-2xl'>
+                  <Link key={acc._id} to={'/places/' + acc._id} className='flex bg-gray-100 gap-4 p-4 rounded-2xl cursor-pointer'>
+                    <div className='w-44 flex shrink-0 lg:w-1/6'>
                       {acc.photos.length > 0 && (
-                        <img className='rounded-2xl' src={'http://localhost:3000/uploads/' + acc.photos[0]} alt="Photo" />
+                        <img className='aspect-square object-cover rounded-2xl shadow-xl' src={'http://localhost:3000/uploads/' + acc.photos[0]} alt="Photo" />
                       )}
                     </div>
                     <div className='grow-0 shrink'>

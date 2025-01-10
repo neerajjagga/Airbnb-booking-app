@@ -25,7 +25,8 @@ const AccountPage = () => {
     axios.post('/user/logout')
       .then((res) => {
         toast.success(res.data.message);
-        navigate('/')
+        setUser(null)
+        navigate('/login')
       })
   }
 

@@ -25,7 +25,6 @@ const LoginPage = () => {
         password,
       })
       .then((res) => {
-        console.log("Response:", res);
         if (res.data.success) {
           toast.success(res.data.message);
           setUser(res.data.user);
@@ -33,9 +32,6 @@ const LoginPage = () => {
         }
       })
       .catch((error) => {
-        console.error("Error occurred:", error);
-        console.log(error.response);
-
         if (error.response) {
           toast.error(error.response.data.message);
         } else {

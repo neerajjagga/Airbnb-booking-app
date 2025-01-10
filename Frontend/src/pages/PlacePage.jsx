@@ -15,7 +15,6 @@ const PlacePage = () => {
     }
     axios.get('/places/' + placeId)
       .then(({ data }) => {
-        console.log(data);
         setPlace(data.place);
       })
       .catch(err => {

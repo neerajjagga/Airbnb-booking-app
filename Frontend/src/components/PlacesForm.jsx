@@ -24,8 +24,6 @@ const PlacesForm = ({redirect, setRedirect}) => {
             link: photoLink
         })
             .then(({ data }) => {
-                console.log(data);
-                console.log(data.filename);
                 toast.success(data.message);
                 setphotos(prev => {
                     return [...prev, data.filename]
@@ -50,7 +48,6 @@ const PlacesForm = ({redirect, setRedirect}) => {
         })
             .then((res) => {
                 const { data: files } = res;
-                console.log(files);
 
                 for (let i = 0; i < files.length; i++) {
                     setphotos(prev => {
@@ -76,12 +73,10 @@ const PlacesForm = ({redirect, setRedirect}) => {
         }
         axios.post('/places/new', placeData)
             .then(({ data }) => {
-                console.log(data);
                 toast.success(data.message);
                 setRedirect('/account/places')
             })
             .catch(({ response }) => {
-                console.log(response);
                 toast.error(response.data.message);
             })
     }

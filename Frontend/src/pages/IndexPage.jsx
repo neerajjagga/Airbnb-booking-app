@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react"
 import axios from 'axios';
 import {toast} from 'react-toastify';
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import IndexCardShimmer from "../components/IndexCardShimmer";
+import PlaceCards from "../components/PlaceCards";
 
 export default function IndexPage() {
     const [places, setPlaces] = useState([]);
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         setLoading(true);
@@ -14,6 +17,9 @@ export default function IndexPage() {
                 setPlaces([...data.allPlaces]);
             })
             .catch(({response}) => {
+                if(response.data.message === "Please log in.") {
+                    navigate('/login')
+                }
                 toast.error(response.data.message || "Something went wrong, try again later")
             })
             .finally(() => {
@@ -23,32 +29,11 @@ export default function IndexPage() {
 
     if(loading) {
         return (
-            <div className="mt-8 grid gap-x-6 gap-y-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                <div className="h-96 bg-gray-300 rounded-2xl mb-2"></div>
-                <div className="h-96 bg-gray-300 rounded-2xl mb-2"></div>
-                <div className="h-96 bg-gray-300 rounded-2xl mb-2"></div>
-                <div className="h-96 bg-gray-300 rounded-2xl mb-2"></div>
-                <div className="h-96 bg-gray-300 rounded-2xl mb-2"></div>
-            </div>
+          <IndexCardShimmer />
         )
     }
 
     return (
-        <div className="mt-8 grid gap-x-6 gap-y-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {places.length > 0 && places.map(place => (
-                <Link to={'/places/'+place._id}>
-                    <div className="bg-gray-500 rounded-2xl mb-2">
-                        {place.photos?.[0] && (
-                            <img className="rounded-2xl aspect-square object-cover" src={'http://localhost:3000/uploads/' + place.photos[0]} alt="sad" />
-                        )}
-                    </div>
-                    <h2 className="text-sm truncate">{place.address}</h2>
-                    <h3 className="font-bold truncate">{place?.title}</h3>
-                    <div className="mt-1">
-                        <span className="font-semibold"> ${place.price} </span> night
-                    </div>
-                </Link>
-            ))}
-        </div>
+      <PlaceCards places={places} />
     )
 }
