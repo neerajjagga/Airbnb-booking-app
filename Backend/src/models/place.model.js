@@ -37,12 +37,14 @@ const placeSchema = new mongoose.Schema({
     },
     maxGuests : {
         type : Number,
+    },
+    embedding: {
+        type: [Number],
+        default: [],
     }
 }, {
     timestamps : true
 })
-
-const Place = mongoose.model('Place', placeSchema);
 
 placeSchema.set('toJSON', {
     transform : function(doc, ret) {
@@ -51,6 +53,8 @@ placeSchema.set('toJSON', {
         delete ret.__v
     } 
 })
+
+const Place = mongoose.model('Place', placeSchema);
 
 module.exports = {
     Place,
